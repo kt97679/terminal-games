@@ -1,0 +1,30 @@
+
+
+
+
+
+This UIC contains the source, object modules, and task images for a game
+similar to the popular arcade game, MISSILE COMMANDER.  To play you need:
+
+	1 PDP-11 (or VAX-see below) computer running RSX-11M or RSX-11M+
+	1 VT100 terminal at 9600 baud (Advanced Video Option NOT required)
+
+A brief set of playing instructions are present in the file MISSIL.DOC.
+
+Two versions of the task are provided, MSLFSL.TSK for those of you who have
+a supervisor mode FCS library, and MSL.TSK for everybody else. The supervisor
+mode library version runs in about 13K words of memory, and the regular
+version in about 16K words. 
+
+Task build command files are provided for both versions:
+  (MSLFSL.TKB and MSL.TKB)
+
+The source code is written mostly in RATFOR, with some assembly language.
+A command file to assemble and compile the source is provided (MISSIL.BLD)
+
+Enjoy!!
+
+					Glen Hoffing
+					RCA Gov't Communications Systems
+					Front and Cooper Sts.  10-4-6
+					Camden, NJ 08102

@@ -1,0 +1,70 @@
+
+
+This game is similar to the arcade game, CENTIPEDE.  As written, 
+it must be played on a VT100 video terminal.  You have a gun, which you
+can move around on the bottom third of the screen (player's zone) and with 
+which you can shoot at various invading creatures.  Bullets from your gun 
+travel upwards until they either hit a target or the top of the screen.  
+No more than one bullet can be on the screen at a time.  Centipedes appear 
+at various times on the screen, consisting of a head and from zero to eleven 
+body segments. Centipedes move back and forth across the screen, descending 
+a level when they hit a screen boundary, a mushroom, or another centipede.  
+When they reach the bottom of the screen they begin to ascend in the same 
+manner, but remain within the player's zone.  The object of the game is to 
+kill these centipedes before they eat your gun.  
+
+When you hit a centipede with a bullet, he becomes one segment shorter.  (Thus
+if he only had a head, he is now completely destroyed.)  If you hit the head,
+the next segment becomes the new head.  If you hit the tail, it is destroyed.
+If you hit anything in between, that segment is destroyed and the centipede
+becomes two smaller centipedes.  In all cases, the segment destroyed becomes 
+a mushroom.
+
+A spider appears almost continuously in the player's zone.  He starts at one
+end and moves randomly across to the other side of the screen.  He can kill
+you and you can kill him.  He eliminates any mushrooms he contacts, but you
+get no credit for destroying them.  To make matters more difficult, two
+other creature types start appearing after you have reached certain scores.
+Fleas move straight down from the top of the screen, dropping mushrooms behind
+them periodically.  They can, like the spider, kill you or be shot by you.
+Scorpions move horizontally across the screen, and poison any mushrooms they
+contact.  When a centipede hits a poison mushroom, it zigzags straight down to
+the bottom of the player's zone and then resumes normal motion.
+
+You fire the gun by pressing any alphabetic key or the space bar.  Holding the
+pressed key down will cause rapid fire (limited to one bullet on the screen 
+at one time).  You move your gun with the keypad numeric keys.  There are 
+eight directions of motion.  The 2, 4, 6, and 8 keys give you horizontal and 
+vertical motion, and the 1, 3, 7, and 9 keys give you diagonal motion.  One 
+push of a direction key moves you one square.  You can hold a key down for 
+rapid motion.  NOTE!!! Due to the nature of the VT100 autorepeat key feature, 
+you cannot have rapid motion and fire, or rapid fire and motion, at the same 
+time.  Thus, if you hold both the firing space bar and a direction key down 
+at the same time, nothing happens!!
+
+You get three guns, plus a bonus one every 12000 points.  The game continues
+until you run out of guns.  The game can be put on 'hold' by typing a 
+control-S (noscroll) and resumed by typing a control-Q (noscroll).  You can 
+end the game at any time by typing a control-C.
+
+The scoring of the game is as follows:
+
+each centipede head killed:          -  100 points
+each centipede body segment killed:  -   10 points
+each mushroom destroyed:             -    1 point 
+   (note that it takes 4 shots to destroy a mushroom)
+each spider killed                   -  300, 600, or 900 points
+   (depends on how close spider is to gun)
+each flea killed                     -  200 points
+each scorpion killed                 - 1000 points
+
+When a gun is killed, all damaged and poisoned mushrooms are repaired.
+You get 5 points for each one.
+
+
+Enjoy!!
+
+Glen Hoffing
+RCA Gov't Communications Systems
+Front and Cooper Sts.   10-4-6
+Camden, NJ  08102

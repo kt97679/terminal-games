@@ -1,0 +1,75 @@
+	SUBROUTINE SMART
+#
+#	THIS SUBROUTINE IS CALLED TO CONTROL SMART BOMBS
+#
+	IMPLICIT INTEGER (A-Z)
+	INCLUDE SY:MISSIL.CMN
+	INCLUDE SY:UVT100.DAT
+	DIMENSION TARGY(9)
+	DATA TARGY / 4,8,12,16,21,25,29,33,37 /
+#
+#	LOOP THROUGH EACH ENTRY OF SMART BOMB TABLE
+#
+	DO I = 1,12 [
+	  IF (SMBACT(I) == 0)
+	    NEXT				#THIS SMART BOMB NOT ACTIVE
+	  IF (SMBACT(I) > 0) [			#POSITIVE NUMBER IS DELAY TIME
+	    SMBACT(I) = SMBACT(I) - 1		#DECREMENT IT.
+	    IF (SMBACT(I) == 0)			#IF ZERO, SET IT NEGATIVE
+	      SMBACT(I) = -1			#(MEANS ACTIVE)
+	    ]
+	  IF (SMBACT(I) < 0) [			#IF THIS SMART BOMB IS ACTIVE
+	    IF (STATE(SMBTAR(I)) != 1) [	#IF ITS TARGET IS DESTROYED...
+	      A = SMBTAR(I)
+	      B = SMBTAR(I)
+	      WHILE (A > 1 .OR. B < 9) [	#FIND TARGET'S CLOSEST LIVING
+	        A = A - 1			#NEIGHBOR AS THE NEW TARGET
+		IF (A < 1)
+	          A = 1
+	        IF (STATE(A) == 1) [
+	          SMBTAR(I) = A			#NEIGHBOR TO LEFT IS ALIVE
+	          BREAK
+	          ]
+	        B = B + 1
+	        IF (B > 9)
+	          B = 9
+	        IF (STATE(B) == 1) [
+	          SMBTAR(I) = B			#NEIGHBOR TO RIGHT IS ALIVE
+	          BREAK
+	          ]
+	        ]
+	      ]
+	    NEWX = SMBX(I) + 1			#NEW X-COORDINATE
+	    A = 21 - SMBX(I)
+	    B = TARGY(SMBTAR(I)) - SMBY(I)
+	    IF (B < 0)
+	      B = -B
+	    IF (A == B) [			#IF WE ARE AT 45 DEGREE ANGLE
+	      IF (TARGY(SMBTAR(I)) > SMBY(I))	#TO TARGET, HOME IN ON IT.
+	        NEWY = SMBY(I) + 1
+	      ELSE
+	        NEWY = SMBY(I) - 1
+	      ]
+	    ELSE				#ELSE FALL STRAIGHT DOWN
+	      NEWY = SMBY(I)
+	    IF (DSPLAY(NEWX,NEWY) != 1) [	#DON'T MOVE INTO LOCATION
+	      CALL UVT100(CUP,SMBX(I),SMBY(I))	#WHERE WE WOULD BE DESTROYED
+	      OUTBUF(LEN+1) = SPACE		#('BOUNCE') OFF THE TOP
+	      LEN = LEN + 1			#OF A MISSILE CLOUD)
+	      CALL UVT100(CUP,NEWX,NEWY)
+	      OUTBUF(LEN+1) = DEGREE		#DISPLAY SMART BOMB AT NEW LOC
+	      LEN = LEN + 1
+	      SMBX(I) = NEWX
+	      SMBY(I) = NEWY
+	      ]
+	    IF (SMBX(I) == 21) [		#IF ON LINE 21
+	      SMBACT(I) = 0			#DEACTIVATE IT,
+	      CALL UVT100(CUP,SMBX(I),SMBY(I))
+	      OUTBUF(LEN+1) = SPACE
+	      LEN = LEN + 1
+	      CALL DSTROY(SITENM(SMBY(I)))	#SEE IF IT DESTROYED ANYTHING
+	      ]
+	    ]
+	  ]
+	RETURN
+	END

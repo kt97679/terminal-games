@@ -1,0 +1,257 @@
+	PROGRAM WONDER
+#
+#	THIS PROGRAM SOLVES THE 'WONDERWORD' PUZZLES IN THE NEWSPAPER
+#
+	IMPLICIT INTEGER (A-Z)
+	INCLUDE/NL SY:UVT100.DAT
+	PARAMETER C=15, R=15, BELL=7, COFF=12, ROFF=3
+	BYTE ARRAY(R,C), FOUND(R,C), WORD(0:R-1)
+	OPEN (UNIT=5,CARRIAGECONTROL='NONE')
+	CALL UVT100(ANSI)
+	CALL UVT100(ED,2)
+#
+#	ENTER LETTERS FOR DISPLAY, ROW BY ROW
+#
+	DO I = 1,R [
+	  CALL UVT100(CUP,23,1)
+	  CALL UVT100(ED,0)
+	  WRITE (5,100) I
+	  CALL UVT100(CUP,24,1)
+	  READ (5,200) N,(ARRAY(I,J),J=1,N)
+	  ]
+#
+#	DISPLAY LETTERS
+#
+	CALL UVT100(ED,2)
+	DO I = 1,R [
+	  CALL UVT100(CUP,I+ROFF,1)
+	  CALL UVT100(DECDWL)
+	  CALL UVT100(CUP,I+ROFF,1+COFF)
+	  WRITE (5,400) (ARRAY(I,J),J=1,C)
+	  ]
+#
+#	ENTER WORDS TO FIND. ENTER CARRIAGE RETURN AFTER LAST ONE.
+#
+	REPEAT [
+9999	  CALL UVT100(CUP,24,1)
+	  CALL UVT100(EL,2)
+	  CALL UVT100(CUP,24,1)
+	  WRITE (5,300)
+	  READ (5,200) WRDLEN,(WORD(I),I=0,WRDLEN-1)
+	  DO I = 1,R [
+	    CALL UVT100(CUP,I+ROFF,1+COFF)
+	    WRITE (5,400) (ARRAY(I,J),J=1,C)
+	    ]
+	  IF (WRDLEN == 0 .OR. WRDLEN > R)
+	    BREAK
+#
+#	  90 DEGREES
+#
+	  DO X = 1,R [
+	    DO Y = 1,C-WRDLEN+1 [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X,Y+L) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X+ROFF,Y+I+COFF)
+	          WRITE (5,10) ARRAY(X,Y+I)
+	          FOUND(X,Y+I) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+	        ]
+	      ]
+	    ]
+#
+#	  180 DEGREES
+#
+	  DO X = 1,R-WRDLEN+1 [
+	    DO Y = 1,C [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X+L,Y) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X+I+ROFF,Y+COFF)
+	          WRITE (5,10) ARRAY(X+I,Y)
+	          FOUND(X+I,Y) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+	        ]
+	      ]
+	    ]
+#
+#	  270 DEGREES
+#
+	  DO X = 1,R [
+	    DO Y = WRDLEN,C [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X,Y-L) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X+ROFF,Y-I+COFF)
+	          WRITE (5,10) ARRAY(X,Y-I)
+	          FOUND(X,Y-I) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+	        ]
+	      ]
+	    ]
+#
+#	  360 DEGREES
+#
+	  DO X = WRDLEN,R [
+	    DO Y = 1,C [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X-L,Y) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X-I+ROFF,Y+COFF)
+	          WRITE (5,10) ARRAY(X-I,Y)
+	          FOUND(X-I,Y) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+                ]
+	      ]
+	    ]
+#
+#	  45 DEGREES
+#
+	  DO X = WRDLEN,R [
+	    DO Y = 1,C-WRDLEN+1 [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X-L,Y+L) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X-I+ROFF,Y+I+COFF)
+	          WRITE (5,10) ARRAY(X-I,Y+I)
+	          FOUND(X-I,Y+I) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+	        ]
+	      ]
+	    ]
+#
+#	  135 DEGREES
+#
+	  DO X = 1,R-WRDLEN+1 [
+	    DO Y = 1,C-WRDLEN+1 [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X+L,Y+L) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X+I+ROFF,Y+I+COFF)
+	          WRITE (5,10) ARRAY(X+I,Y+I)
+	          FOUND(X+I,Y+I) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+	        ]
+	      ]
+	    ]
+#
+#	  225 DEGREES
+#
+	  DO X = 1,R-WRDLEN+1 [
+	    DO Y = WRDLEN,C [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X+L,Y-L) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X+I+ROFF,Y-I+COFF)
+	          WRITE (5,10) ARRAY(X+I,Y-I)
+	          FOUND(X+I,Y-I) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+	        ]
+	      ]
+	    ]
+#
+#	  315 DEGREES
+#
+	  DO X = WRDLEN,R [
+	    DO Y = WRDLEN,C [
+	      MATCH = 1
+	      DO L = 0,WRDLEN-1 [
+	        IF (ARRAY(X-L,Y-L) != WORD(L)) [
+	          MATCH = 0
+	          BREAK
+	          ]
+	        ]
+	      IF (MATCH == 1) [
+	        CALL UVT100(SGR,7)
+	        DO I = 0,WRDLEN-1 [
+	          CALL UVT100(CUP,X-I+ROFF,Y-I+COFF)
+	          WRITE (5,10) ARRAY(X-I,Y-I)
+	          FOUND(X-I,Y-I) = 1
+	          ]
+	        CALL UVT100(SGR,0)
+	        GO TO 9999
+	        ]
+	      ]
+	    ]
+	  WRITE (5,10) BELL
+	  ]
+	CALL UVT100(CUP,23,1)
+	CALL UVT100(ED,0)
+	CALL UVT100(CUP,23,1)
+	WRITE (5,500)
+	DO I = 1,R [
+	  DO J = 1,C [
+	    IF (FOUND(I,J) == 0)
+	      WRITE (5,10) ARRAY(I,J)
+	    ]
+	  ]
+ 10	FORMAT (A1)	
+100	FORMAT ("ENTER LETTERS FOR ROW ",I2)
+200	FORMAT (Q,80A1)
+300	FORMAT ("ENTER WORD TO FIND: ")
+400	FORMAT (80A1)
+500	FORMAT ("THE SOLUTION IS: ")
+	END

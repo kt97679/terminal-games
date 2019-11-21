@@ -1,0 +1,37 @@
+
+April 20, 1983
+
+This UIC contains improved versions of the games PACMAN, CENTIPEDE,
+MISSILE COMMAND, and BREAKOUT first submitted on the Spring '82 SIG tape.
+The changes are as follows:
+
+1) All games have been modified to perform many fewer QIOs in writing to
+   the VT100.  As a result, the games play more efficiently and no longer
+   bring a PDP-11 to its knees when they are running.  This means other
+   people can use the system for useful(?) work while you are playing games!
+
+2) All games have been built with a call to subroutine TIMCHK, which allows
+   them to run only during the hours 11:30 AM to 12:30 PM, or before 8:00
+   AM or after 5:00 PM.  If you would like to change these hours, modify
+   TIMCHK.RAT or write your own version.  If you want no restrictions, I have
+   provided a TIMCHKALT.OBJ, which enforces none.  To use it, re-task build
+   the tasks after either a) renaming TIMCHKALT.OBJ to TIMCHK.OBJ, or
+   b) modifying the task build (.TKB) files to link to TIMCHKALT.
+
+3) PACMAN has been modified with a new maze that is more in line with the
+   arcade version dimensions, and that is much more exciting to play with.
+
+4) Disk files for the games have been renamed so that the source for all
+   four games can coexist in one UIC.  All files pertaining to PACMAN start
+   with PAC, all CENTIPEDE files start with CEN or CNT, all MISSIL COMMAND
+   files start with MIS or MSL, and all BREAKOUT files start with BRK or BKO.
+
+
+
+See the other README files in this UIC for directions on using the games,
+and contact me if you have any questions/problems.
+
+Glen Hoffing					609-338-2441
+RCA Gov't Communication Systems
+Mailstop 10-4-6
+Camden, NJ 08102

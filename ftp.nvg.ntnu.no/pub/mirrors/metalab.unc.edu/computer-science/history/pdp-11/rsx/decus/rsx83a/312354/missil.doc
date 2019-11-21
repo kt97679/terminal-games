@@ -1,0 +1,69 @@
+
+
+This game is similar to the arcade game, MISSILE COMMANDER.  As written, 
+it must be played on a VT100 video terminal.  You have under your command
+three missile bases, and six cities that you must protect from incoming
+attacking bombs.  Attacking bombs consist of normal bombs, which appear
+on the screen as asterisks, and smart bombs, which appear as circles.
+Both types of bombs fall from the top of the screen towards your bases
+and cities on the bottom. Smart bombs differ in that they are more likely
+to destroy a target if not eliminated, and that they are harder to destroy.
+
+Each of your three missile bases is equipped with ten missiles which you can 
+fire at the attackers. Firing is accomplished by positioning your gunsight 
+and firing a missile from one of your bases. Positioning your gunsight, which
+appears as a plus sign on the screen, is accomplished by use of the VT100 
+keypad keys, 1 through 9.  The keys move the gunsight in the direction 
+relative to their position, that is, the 8 key moves the site up, the
+3 key down and to the right, etc.  The keys do not need to be held down.
+Once a key is hit, the gunsight will move in that direction until it hits
+the edge of the screen, or until the 5 key is hit.  The 5 key stops the
+motion of the gunsight. It takes some practice to get used to controlling
+the gunsight, in particular the "move and stop", "move and stop" motions
+necessary for firing.  Firing of missiles is accomplished by hitting the
+"A", "S", or "D" key.  The "A" key fires a missile from the leftmose base,
+the "S" key from the middle base, and the "D" key from the rightmost base.
+Beneath each base appears a display of the number of missiles still remaining
+to be fired from that base.  If you attempt to fire a missile from a base that
+has none left, or has been destroyed, the VT100 will emit a beep to alert you.
+
+When a missile is fired, it will explode at the location of your gunsight 
+when it was fired.  There is a delay between when you fire and the
+explosion occurs, based on the distance from the base to the location, so
+it may be necessary to "lead" the targets you fire at.  Explosion of the
+missile is indicated on the screen by a cloud that increases in size, holds
+at its maximum size briefly, and then recedes to nothingness. Any bomb
+positioned within the cloud will be destroyed.  It is not necessary to hold
+your gunsight at its location after firing, in fact it is recommended that
+you move on to the next target immediately after firing, and not wait for
+the results of that missile.
+
+The game consists of a series of attack waves.  When each wave completes,
+a new (more difficult) one starts after a brief pause.  Your missile bases 
+are rebuilt and rearmed with ten missiles after each wave.  Destroyed cities 
+remain destroyed, except that you receive a new one for each 10000 points you 
+score. Periodically, a bomber ( => ) may move across the screen and drop a 
+bomb. You can destroy it just as you destroy bombs.  The game ends when all
+of your cities have been destroyed.  You may also exit the game at any time
+by typing a control-C. The screen can be "frozen" for interruptions or 
+distractions by typing a control-S (or no-scroll) and unfrozen by typing 
+a control-Q (or no-scroll).
+
+
+The scoring of the game is as follows:
+
+each city saved at the end of a wave - 100 points (**)
+each missile not used during a wave  - 10 points
+each bomb destroyed                  - 25 points  (**)
+each smart bomb destroyed            - 50 points  (**)
+each bomber airplane destroyed       - 100 points (**)
+
+** - first wave score. these scores double on the second wave, triple on
+the fourth wave, quadruple on the sixth, and so on up to the 24th wave.
+
+Enjoy!!
+
+Glen Hoffing
+RCA Gov't Communications Systems
+Front and Cooper Sts.   10-4-6
+Camden, NJ  08102

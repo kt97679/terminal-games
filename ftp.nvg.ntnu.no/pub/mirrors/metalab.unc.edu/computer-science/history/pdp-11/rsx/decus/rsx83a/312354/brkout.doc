@@ -1,0 +1,38 @@
+
+
+This game is similar to the arcade game, BRKOUT.  As written, it must
+be played on a VT100 video terminal.  The screen consists of five rows of
+bricks near the top, a bouncing ball, and a paddle along the bottom that
+you can move left (by hitting the "4" key on the VT100 keypad) or right
+(by hitting the "6" key on the VT100 keypad).  The idea is to destroy all
+the bricks by hitting them with the ball.  The ball is in constant motion,
+and bounces off walls, bricks, and your paddle.  If the ball moves off the
+bottom of the screen without colliding with your paddle, it is lost.  When
+you have lost three balls, the game is over.  Whenever all the bricks have
+been destroyed, a new set of bricks appears and the game continues.  The
+longer a ball remains on the screen, the faster it moves, making it 
+increasingly difficult to keep it on the screen.
+
+You can move the paddle in "steps" by hitting the 4 or 6 key repetitively,
+or you can hold the key down for continuous motion in the selected direction.
+Continuous motion requires the use of the VT100 autorepeat function, however,
+which does not "kick in" until about a half-second after you hold the key
+down.  There is thus a time lag between when you hold the key down, and
+when continuous motion in the selected direction begins.
+
+The scoring of the game is as follows:
+
+bricks on the first row -   10 points
+bricks on the second row -  20 points
+bricks on the third row  -  30 points
+bricks on the fourth row -  40 points
+bricks on the fifth row  -  50 points
+
+Thus, an entire screen of bricks is worth 2100 points.
+
+Enjoy!!
+
+Glen Hoffing
+RCA Gov't Communications Systems
+Front and Cooper Sts.   10-4-6
+Camden, NJ  08102

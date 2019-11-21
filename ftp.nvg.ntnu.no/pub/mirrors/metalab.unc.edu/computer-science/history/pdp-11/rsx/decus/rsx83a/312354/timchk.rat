@@ -1,0 +1,29 @@
+	SUBROUTINE TIMCHK
+#
+#	THIS SUBROUTINE CAN BE CALLED TO LIMIT GAME-PLAYING HOURS. IT IS
+#	CURRENTLY SET TO LIMIT GAME PLAYING TO 11:30-12:30 AND AFTER HOURS.
+#
+#############################################################################
+#									    #
+#	AUTHOR:		GLEN HOFFING					    #
+#			RCA GOVERNMENT COMMUNICATIONS SYSTEMS		    #
+#			FRONT AND COOPER STS.				    #
+#			CAMDEN, NJ 08102				    #
+#									    #
+#	DATE:		18-APR-83					    #
+#									    #
+#############################################################################
+#
+	IMPLICIT INTEGER (A-Z)
+	REAL SECNDS,TM
+#
+#	TEST IF WITHIN LEGAL GAME PLAYING HOURS
+#
+	TM = SECNDS(0.)
+	IF ((TM > 28800 .AND. TM < 41400) .OR. (TM > 45000 .AND. TM < 61200))[
+	  WRITE (5,100)
+	  CALL EXIT
+	  ]
+	RETURN
+100	FORMAT (" SORRY.  GAME PLAYING TIME IS 11:30-12:30 AND AFTER HOURS")
+	END

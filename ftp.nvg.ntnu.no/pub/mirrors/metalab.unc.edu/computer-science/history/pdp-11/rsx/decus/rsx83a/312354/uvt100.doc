@@ -1,0 +1,126 @@
+
+
+
+                            UVT100 User's Guide
+
+
+AUTHOR:  GLEN HOFFING
+DATE:    Feb.  24, 1981
+
+The UVT100 subroutine interface is designed to allow convenient  access  to  the
+VT100  ANSI  Mode  Control  Sequences as defined in chapter 3 of the VT100 Users
+Guide.  The calling sequence for each function is described below, together with
+a description of the function.
+
+In order for  cursor  control  of  the  VT100  to  perform  satisfactorily,  the
+wraparound  feature  of  the  terminal  driver should be disabled by issuing the
+MCR command "SET /NOWRAP=TI:"
+
+The VT100 must have its ANSI/VT52 setup toggle switch  set  to  ANSI  for  these
+commands  to  work.   This  can  be done manually, or a CALL UVT100(ANSI) can be
+issued to ensure the terminal is set to ANSI.
+
+Programs using UVT100 to write to a terminal must open the logical unit  of  the
+terminal  with  CARRIAGECONTROL='NONE'  to  disable  Fortran  carriage  control.
+Standard  Fortran  CR/LF  carriage  control  can  be  emulated  by   issuing   a
+CALL UVT100(NEL) between each Fortran write.
+
+The format of a UVT100 call is CALL UVT100(cmd,num1,num2), where:     cmd is the
+mode  control  command  to  be executed,    num1 and num2 are numeric parameters
+required for certain commands.
+
+Symbolics are defined for the cmd  parameter  in  the  file  UVT100.DAT.   These
+symbolics  match  those  provided in the VT100 Users Guide, and are provided for
+ease of operation.
+
+The following commands are implemented.
+
+CALL UVT100(CUP,line,column)    position cursor to coordinates given by line
+                                and column. lines are numbered 1-24 and 
+                                columns 1-80. a zero is treated as a one. 
+                                CUP,0,0 is the equivalent of a HOME CURSOR.
+ 
+CALL UVT100(CUB,num)            backspace the cursor num columns. a zero is
+                                treated as a one. cursor will not backspace
+                                beyond left margin.
+ 
+CALL UVT100(CUD,num)            move the cursor down num lines. a zero is
+                                treated as a one. cursor will not move below
+                                bottom margin.
+ 
+CALL UVT100(CUF,num)            forward the cursor num columns. a zero is
+                                treated as a one. cursor will not forward
+                                beyond right margin.
+ 
+CALL UVT100(CUU,num)            move the cursor up num lines. a zero is 
+                                treated as a one. cursor will not move up 
+                                beyond top margin.
+ 
+CALL UVT100(DECDHL,num)         define active line as top or bottom of a 
+                                double-height line. num=0 is the top half, 
+                                and num=1 is the bottom half.
+ 
+
+
+                                                                          Page 2
+                            UVT100 User's Guide
+
+
+CALL UVT100(DECDWL)             define active line as a double width line.
+ 
+CALL UVT100(DECSWL)             define active line as a single-width,
+                                single-height line.
+ 
+CALL UVT100(DECSC)              save the active cursor coordinates.
+ 
+CALL UVT100(DECRC)              restore the cursor to the saved coordinates.
+ 
+CALL UVT100(ED,num)             erase the display. if num=0, erase from active
+                                cursor position to end of display. if num=1,
+                                erase from top of display to active cursor
+                                position. if num=2, erase entire display.
+ 
+CALL UVT100(EL,num)             erase the line. if num=0, erase from active
+                                cursor position to the end of line. if num=1,
+                                erase from the beginning of line to the active
+                                cursor position. if num=2, erase entire line.
+ 
+CALL UVT100(SGR,num)            set graphic rendition. the only attribute
+                                selectable for a VT100 without the advanced
+                                video option is reverse image, num=7.
+                                num=0 turns all attributes off.
+ 
+CALL UVT100(NEL)                position cursor to beginning of next line.
+ 
+CALL UVT100(SCS,num1,num2)      select character set. num1=0 indicates G0 set.
+                                num1=1 indicates G1 set. num2=0 indicates
+                                United Kingdom set. num2=1 indicates standard
+                                ASCII set. num2=2 indicates special graphics
+                                set. in subsequent I/O, the G0 set is selected
+                                by a shift in <control O>, and the G1 set is
+                                selected by a shift out <control N> embedded
+                                in the data.
+ 
+CALL UVT100(SM,num)             set DEC private mode. num is mode to be set.
+                                1 = DECCKM (cursor key)
+                                2 = DECANM (ANSI/VT52)
+                                3 = DECCOLM (column)
+                                4 = DECSCLM (scrolling)
+                                5 = DECSCNM (screen)
+                                6 = DECOM (origin)
+                                7 = DECAWM (auto wrap)
+                                8 = DECARM (auto repeating)
+                                9 = DECINLM (interlace)
+ 
+CALL UVT100(RM,num)             reset DEC private mode. num is the mode to be
+                                reset. see codes listed above for set mode.
+ 
+CALL UVT100(ANSI)               this is a VT52-compatible command to ensure
+                                the terminal is set to ANSI mode. this should
+                                be the first command issued in your program
+                                if you are not sure the target terminal is set
+                                to ANSI mode. this command will be ignored if
+                                the terminal is already in ANSI mode.
+ 
+
+

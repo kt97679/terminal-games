@@ -1,0 +1,59 @@
+
+
+This game is similar to the arcade game, PACMAN.  As written, it must
+be played on a VT100 video terminal.  You are the PACMAN (asterisk character)
+and are being chased by the four monsters - LEFTY (line feed character),
+CURLY (carriage return character), FLUFFY (form feed character), and
+NELLIE (new line character). You have four directional keys for motion. 
+(8 is up, 2 is down, 4 is left, and 6 is right). These four keys on the VT100 
+keypad correspond to the four directions. It takes a little getting used to 
+this simulated version of a joystick, but it can be done.  The directional 
+keys do not have to be held down. When you select a direction the PACMAN will 
+move in that direction until he hits a wall or you select a new direction. If 
+you select a direction in which PACMAN cannot move at the moment, it will be
+remembered and PACMAN will make that direction change at the first
+possible opportunity, unless you enter a new direction in the interim.
+
+Normally the monsters are chasing you.  When you eat an energizer, (the
+little circles on the screen) you can eat monsters for bonus points. The
+monsters will all change to diamond characters to signify that you are
+in this state. When they are about to change back to monsters (blink
+in the arcade PACMAN game) they will change to checkerboard characters.
+When you eat all of the dots and energizers on the board, the game will
+reset with a new board.  You get three PACMEN in the game, plus a bonus
+one at 10000 points. The game ends when you run out of PACMEN.
+
+Periodically, fruit will appear under the monsters' "prison".  You get
+bonus points for eating these fruit, which appear as the letter A on the
+first board, B on the second, etc., up to six boards.
+
+At the side of the PACMAN maze you will have continually displayed your
+current score, the number of PACMEN you have left, and the fruit you
+have eaten.  Scoring is as follows:
+
+	Dot          -   10 points
+	Energizer    -   50 points
+	Eating monsters:
+	First        -  200 points
+	Second       -  400 points
+	Third        -  800 points
+	Fourth       - 1600 points
+	Fruit:
+	A(apple)     -  100 points
+	B(berry)     -  300 points
+	C(cherry)    -  500 points 
+	D(date)      -  700 points
+	E(eggplant)  - 1000 points
+	F(fig)       - 2000 points
+
+The game will end automatically when you run out of PACMEN.  In addition,
+you can end the game at any time by typing in a control-C.  The screen can
+be "frozen" for interruptions or distractions by typing a control-S (or no-
+scroll) and unfrozen by typing a control-Q (or no-scroll).
+
+Enjoy!!
+
+Glen Hoffing
+RCA Gov't Communications Systems
+Front and Cooper Sts.   10-4-6
+Camden, NJ  08102
