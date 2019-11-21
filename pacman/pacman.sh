@@ -1111,7 +1111,7 @@ intro() {
 stty_g=$(stty -g) # let's save terminal state
 hide_cursor
 stty -echo
-#intro
+intro
 
 at_exit() {
     xyprint $GAMEOVER_X $GAMEOVER_Y "Game over!"
